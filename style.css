@@ -150,6 +150,11 @@ p {
     float: right;
 }
 
+.thumbnail {
+    width: 12vw;
+    float: right;
+}
+
 a {
     text-decoration: none;
     font-style: italic;
