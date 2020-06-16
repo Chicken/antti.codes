@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /media/
+Disallow: README.md
+Disallow: robots.txt
+Disallow: script.js
+Disallow: style.css
