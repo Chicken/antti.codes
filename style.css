@@ -110,11 +110,6 @@ p {
     background-color: rgb(0, 0, 0);
 }
 
-.black:hover {
-    color: rgb(255,255,255);
-    background-color: rgb(0, 0, 0);
-}
-
 .brown:hover {
     color: rgb(255,255,255);
     background-color: rgb(139,69,19);
