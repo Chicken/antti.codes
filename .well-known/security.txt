@@ -1,0 +1,3 @@
+Contact: mailto:antti@antti.codes
+Encryption: https://antti.codes/media/antti.asc
+Preferred-Languages: en, fi
