@@ -1,8 +1,6 @@
 # Antti.codes
 
-[Link](https://antti.codes)
-
-My website for all my shit.  
+My [website](https://antti.codes) for all my stuff.  
   
 Made without a framework. Cries in native css.  
   
