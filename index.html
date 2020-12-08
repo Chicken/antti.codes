@@ -20,6 +20,7 @@
 
     <body ondragstart="return false;" ondrop="return false;">
         <div class="container">
+            
             <div class="header">
                 <button class="back" hidden>&#5176;&#5176;</button>
                 <h1 class="start">Antti</h1>
@@ -27,9 +28,9 @@
                 <h1 class="info" hidden>Info</h1>
                 <h1 class="projects" hidden>Projects</h1>
                 <h1 class="socials" hidden>Socials</h1>
-                <h1 class="minecraft" hidden>Minecraft</h1>
                 <h1 class="chickenbot" hidden>ChickenBot</h1>
             </div>
+
             <div class="content">
                 <div class="start">
                     <button class="nav page white">Intro</button>
@@ -41,19 +42,20 @@
                     <button class="nav page blurple">Socials</button>
                     <button class="nav page brown">ChickenBot</button>
                     <br class="sep">
-                    <button class="nav page green">Minecraft</button>
                     <a href="media/antti.asc" target="_blank"><button class="nav cyan">GPG Public key</button></a>
-                    <br>
                     <a href="https://s.antti.codes" target="_blank"><button class="nav red">Short Url</button></a>
+                    <br>
                     <a href="https://weather.antti.codes" target="_blank"><button class="nav purple">Weather station</button></a>
+                    <button class="nav white">Placeholder</button>
                     <br class="sep">
                     <button class="nav white">Placeholder</button>
                     <button class="nav white">Coming soon...</button>
                     <br>
                 </div>
+
                 <div class="intro" hidden>
 		            <p>
-                    Hello! My name is Antti and I am a 15 year old boy from finland! <br>
+                    Hello! My name is Antti and I'm a 16 year old boy from finland! <br>
                     I am interested in development and coding. And that's why it's kinda my hobby and profession at the moment.
                     I have been coding for many years now and gathered alot of information on the way. <br>
                     I have made games, utilities, stuff that interacts with the real world and webpages. <br>
@@ -64,6 +66,7 @@
                     </p> 
                     <img style="width:100%;height:13vh;" src="media/wide_chicken.png">
                 </div>
+
                 <div class="info" hidden>
                     <div class="left">
                         Coding languages I can use:
@@ -81,7 +84,7 @@
                                 Python
                             </li>
                             <li>
-                                And continues to grow...
+                                C#
                             </li>
                         </ul>
                     </div>
@@ -89,7 +92,7 @@
                         Environments I am familiar with:
                         <ul>
                             <li>
-                                Ubuntu (os and server)
+                                Ubuntu (server)
                             </li>
                             <li>
                                 Windows (os and server)
@@ -106,7 +109,7 @@
                                 MongoDB
                             </li>
                             <li>
-                                MySQL
+                                MySQL (MariaDB)
                             </li>
                             <li>
                                 Enmap
@@ -114,8 +117,9 @@
                         </ul>
                     </div>
                 </div>
+
                 <div class="projects" hidden>
-                    I am fan of open sourced code but I don't like to share my own code alot.
+                    I am fan of open sourced code.
                     <br>
                     (This is not all, I just want to keep the lists simple)
                     <br><br>
@@ -128,9 +132,6 @@
                         </li>
                         <li>
                             Reddit downloader
-                        </li>
-                        <li>
-                            ModMail bot
                         </li>
                         <li>
                             Membercount bot
@@ -154,13 +155,10 @@
                             This site
                         </li>
                         <li>
-                            <a class="normalized" href="https://chickenbot.antti.codes" target="_blank">ChickenBot</a>
+                            <a class="normalized" href="https://github.com/Chicken/ChickenBot" target="_blank">ChickenBot</a>
                         </li>
                         <li>
                             <a class="normalized" href="https://github.com/Chicken/WeatherApi" target="_blank">My own rpi weather station and it's interface</a>
-                        </li>
-                        <li>
-                            <a class="normalized" href="https://tankie.antti.codes" target="_blank">Tankie</a>
                         </li>
                         <li>
                             <a class="normalized" href="https://s.antti.codes" target="_blank">URL shortener</a>
@@ -168,9 +166,16 @@
                         <li>
                             <a class="normalized" href="https://github.com/Chicken/DiscordDataStatistics" target="_blank">Discord Messages Statistics</a>
                         </li>
+                        <li>
+                            <a class="normalized" href="https://github.com/Chicken/Screen2Minecraft" target="_blank">Screen2Minecraft plugin</a>
+                        </li>
+                        <li>
+                            <a class="normalized" href="https://github.com/Chicken/WilmaCli" target="_blank">WilmaCli</a>
+                        </li>
                     <ul>
                     </div>
                 </div>
+
                 <div class="socials" hidden>
                     <img src="media/discord.png" class="emoji"> Discord: Chicken#4127
                     <br>
@@ -182,20 +187,7 @@
                     <br><br>
                     More will be available when I feel more comfortable with it.
                 </div>
-                <div class="minecraft" hidden>
-                    <p style="text-decoration: line-through;">
-                    I have a minecraft server.
-                    <br>
-                    I made it as a proof of concept but later decided that why not just keep it open now that I have made it.
-                    The server is made of a bungee proxy that connects to a hub and from hub to either survival or creative.
-                    New gamemodes might be made in the future but for now, no. (You can give suggestions to me)
-                    <br><br>
-                    Server is closed because it's under heavy maintenance.
-                    </p>
-                    <p>
-                    Uh yeah so no, too lazy.
-                    </p>
-                </div>
+
                 <div class="chickenbot" hidden>
                     <img class="thumbnail" src="media/new chicken.png">
                     ChickenBot is my fabulous discord bot. It's one of my rare successful projects.
@@ -209,10 +201,12 @@
                     In future when I have time and mind I'll try to make a web based easy to use dashboard and add tons of new features.
                     <br><br>
                     ChickenBot is hosted with node.js (v14) using the discord.js (v12) library on my vps.<br>
-                    You can invite it from <a href="https://discord.com/oauth2/authorize?client_id=512663078819725313&scope=bot&permissions=37088454" target="_blank">here</a><br>
-                    Topcord (top.gg won't approve me) <a href="https://topcord.xyz/bot/512663078819725313" target="_blank">here</a><br>
-                    Future dashboard <a href="https://chickenbot.antti.codes" target="_blank">here</a><br>
+                    <a href="https://github.com/Chicken/ChickenBot" target="_blank">Source</a> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="https://discord.com/oauth2/authorize?client_id=512663078819725313&scope=bot&permissions=37088454" target="_blank">Invite</a><br>
+                    <a href="https://topcord.xyz/bot/512663078819725313" target="_blank">Topcord</a> &nbsp;&nbsp;
+                    <a href="https://chickenbot.antti.codes" target="_blank">Future dashboard</a><br>
                 </div>
+                
             </div>
         </div>
     </body>
