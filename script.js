@@ -1,14 +1,6 @@
 // variables
 let current = "start";
 let backbutton = Array.from(document.getElementsByClassName("back"))[0];
-let oof = false;
-
-// oof easter egg (turned on from console)
-Array.from(document.getElementsByTagName("button")).forEach(b => {
-    b.addEventListener("click", () => {
-        if(oof) new Audio("oof.mp3").play();
-    })
-})
 
 // page buttons
 Array.from(document.getElementsByClassName("page")).forEach(b => {
