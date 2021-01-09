@@ -5,16 +5,12 @@ let backbutton = Array.from(document.getElementsByClassName("back"))[0];
 // page buttons
 Array.from(document.getElementsByClassName("page")).forEach(b => {
     b.addEventListener("click", () => {
-        setTimeout(() => {
-            changePage(b.innerText.toLowerCase());
-        }, 200)
+        setTimeout(changePage, 100, b.innerText.toLowerCase());
     })
 })
 
 // backbutton functionality
-backbutton.addEventListener("click", () => {
-    changePage("start");
-})
+backbutton.addEventListener("click", () => changePage("start"));
 
 // site links
 let fragment = window.location.hash.substr(1);
@@ -28,7 +24,7 @@ function changePage(page) {
         return;
     };
     if (page == "start") {
-        window.location.replace("https://antti.codes/");
+        window.location.replace("https://antti.codes/#");
         backbutton.style.display = "none";
     } else {
         window.location.replace("https://antti.codes/#" + page);
