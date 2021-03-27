@@ -170,7 +170,12 @@ button {
 }
 
 .emoji {
-    width: 0.9em;
+    width: 1em;
+}
+
+.banner {
+    width: 100%;
+    height: 13vh;
 }
 
 .sep {
