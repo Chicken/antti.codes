@@ -19,15 +19,15 @@ if(fragment) changePage(fragment);
 // page change function
 function changePage(page) {
     let pages = Array.from(document.getElementsByClassName(page));
-    if(pages.length == 0) {
-        window.location.replace("https://antti.codes/");
+    if(pages.length === 0) {
+        window.location.hash = "";
         return;
     };
     if (page == "start") {
-        window.location.replace("https://antti.codes/#");
+        window.location.hash = "#";
         backbutton.style.display = "none";
     } else {
-        window.location.replace("https://antti.codes/#" + page);
+        window.location.hash = `#${page}`;
         backbutton.style.display = "block";
     }
     pages.forEach(c => {
