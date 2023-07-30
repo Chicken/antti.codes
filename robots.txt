@@ -3,3 +3,4 @@ Allow: /
 Disallow: /media/
 Disallow: /LICENSE
 Disallow: /google7f47e69ab7b4c9a4.html
+Disallow: /abuseipdb-verification.html

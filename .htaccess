@@ -1,6 +1,0 @@
-Options -Indexes
-
-<Files README.md>
-Order allow,deny
-Deny from all
-</Files>

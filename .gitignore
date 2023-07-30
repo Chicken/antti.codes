@@ -1,0 +1,9 @@
+*.pdf
+
+bm-marker-migrator/
+graphs/
+hextris/
+sprouts/
+yippy/
+
+old_iiow_versions/
