@@ -1,230 +1,330 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en_US">
 
-    <head>
-        <title>Antti</title>
+<head>
+    <title>Antti.Codes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="en_us">
+    <meta name="theme-color" content="#090609">
+    <meta name="keywords" content="antti,antti.codes,developer,programmer,sysadmin,homepage">
+    <meta name="description" content="Antti.Codes homepage" />
 
-        <meta charset="UTF-8">
-        <meta name="url" content="https://antti.codes">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="language" content="en_us">
-        <meta name="theme-color" content="#000000">
-        <meta name="keywords" content="antti,antti.codes,developer,programmer,coder">
-        <meta name="description" content="Antti's main webpage and portal to other projects"/>
+    <meta name="og:title" content="Antti.Codes" />
+    <meta name="og:url" content="https://antti.codes/" />
+    <meta name="og:type" content="website">
+    <meta name="og:locale" content="en_us">
+    <meta name="og:email" content="antti@antti.codes" />
 
-        <meta name="author" content="Antti">
-        <meta name="owner" content="Antti">
-        <meta name="copyright" content="Antti">
+    <style>
+        @font-face {
+            font-family: SpaceMono;
+            src: url(./assets/SpaceMono.ttf);
+        }
 
-        <meta name="og:title" content="Antti"/>
-        <meta name="og:site_name" content="Antti.Codes">
-        <meta name="og:description" content="Antti's main webpage and portal to other projects"/>
-        <meta name="og:url" content="https://antti.codes"/>
-        <meta name="og:type" content="website">
-        <meta name="og:locale" content="en_us">
-        <meta name="og:email" content="antti@antti.codes"/>
-        
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <script defer src="script.js"></script>
-    </head>
+        :root {
+            line-height: 1.5;
+            font-size: 16px;
+            font-family: SpaceMono;
 
-    <body>
-        <div class="container">
-            
-            <div class="header">
-                <button class="back" hidden>&#5176;&#5176;</button>
-                <h1 class="start">Antti</h1>
-                <h1 class="intro" hidden>Introduction</h1>
-                <h1 class="info" hidden>Information</h1>
-                <h1 class="projects" hidden>Projects</h1>
-                <h1 class="socials" hidden>Socials</h1>
-                <h1 class="chickenbot" hidden>ChickenBot</h1>
-            </div>
+            --text: #fafafa;
+            --background: #090609;
+            --primary: #b94680;
+            --secondary: #1a0a0a;
+            --accent: #ed6eed;
+        }
 
-            <div class="content">
-                <div class="start">
-                    <p>This whole webpage is old and outdated, can't be arsed to update.</p>
-                    <noscript>
-                        <p>This page requires javascript to work. Sorry!</p>
-                    </noscript>
-                    <button class="nav page white">Intro</button>
-                    <button class="nav page yellow">Info</button>
-                    <br class="sep">
-                    <button class="nav page orange">Projects</button>
-                    <a href="https://github.com/Chicken" rel="me" rel="noreferrer"><button class="nav pink">Github</button></a>
-                    <br>
-                    <button class="nav page blurple">Socials</button>
-                    <button class="nav page brown">ChickenBot</button>
-                    <br class="sep">
-                    <a href="pgpkey" rel="noreferrer"><button class="nav cyan">PGP Public key</button></a>
-                    <a href="https://antti.link" rel="noreferrer"><button class="nav red">Short Url</button></a>
-                    <br>
-                    <a href="https://weather.antti.codes" rel="noreferrer"><button class="nav purple">Weather station</button></a>
-                    <a href="sshkey" rel="noreferrer"><button class="nav green">SSH Keys</button></a>
-                    <br class="sep">
-                    <a href="https://an.tti.sh/" rel="noreferrer"><button class="nav pink">Blog</button></a>
-                    <a hreF="https://status.antti.codes/" rel="noreferrer"><button class="nav white">Status page</button></a>
-                    <br>
-                </div>
+        body {
+            margin: 2em auto;
+            max-width: 800px;
+            padding: 1em;
+            margin-bottom: 6em;
 
-                <div class="intro" hidden>
-		            <p>
-                       Hey! My name is Antti and I'm a 18 year old boy from Finland! <br/>
-                       I am interested in development and coding. That's why it's my hobby and profession at the same time right now.
-                       I have been coding for many years now and gathered a lot of knowledge on the way.
-                       I have made games, utilities, real world applications, web pages
-                       and a couple of other things (see for yourself on my GitHub profile).
-                       I love open-source projects and publish most of my code. Webdesign isn't really my strength (as you can tell from this website)
-                       but backends are full of logic and that's where I belong.
-                       Also I am a big derp and like to play games every now and then (rather now than then). :)
-                    </p> 
-                    <img class="banner" src="media/wide_chicken.webp">
-                </div>
+            display: flex;
+            flex-direction: column;
 
-                <div class="info" hidden>
-                    <div class="left">
-                        Coding languages I can use:
-                        <ul>
-                            <li>
-                                JS / HTML / CSS
-                            </li>
-                            <li>
-                                Node.JS
-                            </li>
-                            <li>
-                                Java
-                            </li>
-                            <li>
-                                Python
-                            </li>
-                            <li>
-                                C#
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="middle">
-                        Environments I am familiar with:
-                        <ul>
-                            <li>
-                                Ubuntu/Debian (server)
-                            </li>
-                            <li>
-                                Windows (os and server)
-                            </li>
-                            <li>
-                                Visual Studio Code (editor)
-                            </li>
-                            <li>
-                                Git (version control)
-                            </li>
-                            <li>
-                                Raspberry PI (hardware)
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="right">
-                        Databases I am somewhat familiar with:
-                        <ul>
-                            <li>
-                                MongoDB
-                            </li>
-                            <li>
-                                SQL (MariaDB)
-                            </li>
-                            <li>
-                                Enmap & JOSH
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            text-align: justify;
+            font-kerning: normal;
 
-                <div class="projects" hidden>
-                    I am fan of open sourced code. Here are some of mine.
-                    <br>
-                    Checkout my github for more!
-                    <br><br>
-                    <div class="left" style="width:50%">
-                        <ul>
-                            <li>
-                                <a class="normalized" href="https://github.com/Chicken/ChickenBot" rel="noreferrer" target="_blank">ChickenBot</a>
-                            </li>
-                            <li>
-                                <a class="normalized" href="https://github.com/Chicken/WeatherApi" rel="noreferrer" target="_blank">RPI Weather station and GUI</a>
-                            </li>
-                            <li>
-                                <a class="normalized" href="https://github.com/Chicken/WeatherApp" rel="noreferrer" target="_blank">Android app for that weather station</a>
-                            </li>
-                            <li>
-                                <a class="normalized" href="https://github.com/Chicken/UrlShortener" rel="noreferrer" target="_blank">URL shortener</a>
-                            </li>
-                            <li>
-                                <a class="normalized" href="https://github.com/Chicken/DiscordDataStatistics" rel="noreferrer" target="_blank">Discord Message Statistics</a>
-                            </li>
-                            <li>
-                                <a class="normalized" href="https://github.com/Chicken/Screen2Minecraft" rel="noreferrer" target="_blank">Screen2Minecraft plugin</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="right" style="width:50%">
-                        <ul>
-                            <li>
-                                <a class="normalized" href="https://github.com/Chicken/WilmaCli" rel="noreferrer" target="_blank">WilmaCli</a>
-                            </li>
-                            <li>
-                                <a class="normalized" href="https://github.com/Chicken/CustomUploader" rel="noreferrer" target="_blank">CustomUploader for ShareX</a>
-                            </li>
-                            <li>
-                                <a class="normalized" href="https://github.com/Chicken/GameOfLife" rel="noreferrer" target="_blank">CLI Game Of Life</a>
-                            </li>
-                            <li>
-                                <a class="normalized" href="https://github.com/Chicken/SystemStats" rel="noreferrer" target="_blank">System statistics exporter</a>
-                            </li>
-                            <li>
-                                <a class="normalized" href="https://github.com/Chicken/WebNotepad" rel="noreferrer" target="_blank">Notepad on the web</a>
-                            </li>
-                            <li>
-                                <a class="normalized" href="https://github.com/Chicken/YoutubePlayer" rel="noreferrer" target="_blank">Spotify like youtube app</a>
-                            </li>
-                        <ul>
-                    </div>
-                </div>
+            background-color: var(--background);
+            color: var(--text);
+        }
 
-                <div class="socials" hidden>
-                    <img src="media/discord.webp" class="emoji"> Discord: @antticodes (id: <a href="#socials">312974985876471810</a>)
-                    <br>
-                    <img src="media/mail.webp" class="emoji"> Email: <a href="mailto:antti@antti.codes">antti@antti.codes</a> - <a href="pgpkey" rel="noreferrer" target="_blank">PGP Public key</a>
-                    <br>
-                    <img src="media/youtube.webp" class="emoji"> Youtube: <a href="https://www.youtube.com/channel/UC-uBR9Awwq_wHQL9kvlwW6w" rel="noreferrer" target="_blank">ChickenE</a>
-                    <br>
-                    <img src="media/github.webp" class="emoji"> Github: <a href="https://github.com/Chicken" rel="noreferrer" target="_blank">Chicken</a>
-                    <br>
-                    <img src="media/telegram.webp" class="emoji"> Telegram: <a href="https://t.me/antti_e" rel="noreferrer" target="_blank">antti_e</a>
-                    <br>
-                    <img src="media/element.webp" class="emoji"> Matrix: <a href="https://matrix.to/#/@antti:antti.codes" rel="noreferrer" target="_blank">@antti:antti.codes</a> or <a href="https://matrix.to/#/#chat:antti.codes" rel="noreferrer" target="_blank">#chat:antti.codes</a>
-                </div>
+        h1,
+        h2,
+        h3 {
+            align-self: first baseline;
+            line-height: 1.2;
+            background: linear-gradient(30deg, var(--primary), var(--accent));
+            background-clip: text;
+            color: transparent;
+        }
 
-                <div class="chickenbot" hidden>
-                    <img class="thumbnail" src="media/chicken_bot.webp">
-                    ChickenBot is my fabulous Discord bot. It's one of my rare successful projects.
-                    It's a multi-purpose Discord bot. Mainly for personal usage to make life easier.
-                    But in the latest versions I have made it more user-friendly.
-                    <br><br>
-                    It can play music, show cute cat pictures, do some basic moderation, log stuff or remind you about something.
-                    You can also use it's many utilities like polls, userinfo and message quotation.
-                    It even has a xp based activity with levels and leaderboard. (role rewards on levels coming soon I hope)
-                    <br><br>
-                    In future when I have the time and mind I'll try to make a web based easy to use dashboard and add tons of new features.
-                    <br><br>
-                    ChickenBot is hosted with node.js using the discord.js library on my vps.<br>
-                    <a href="https://github.com/Chicken/ChickenBot" rel="noreferrer" target="_blank">Source</a> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="https://discord.com/oauth2/authorize?client_id=512663078819725313&scope=bot&permissions=37088454" rel="noreferrer" target="_blank">Invite</a><br>
-                    <a href="https://topcord.xyz/bot/512663078819725313" rel="noreferrer" target="_blank">Topcord</a> &nbsp;&nbsp;
-                    <a href="https://bot.antti.codes" rel="noreferrer" target="_blank">Future dashboard</a><br>
-                </div>
-                
-            </div>
-        </div>
-    </body>
+        h3 {
+            margin-top: 0.5em;
+        }
+
+        h1 {
+            align-self: center;
+        }
+
+        p {
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+
+        a {
+            color: var(--text);
+        }
+
+        ul,
+        ol {
+            margin-top: 8px;
+            padding-left: 8px;
+        }
+
+        ul>ul,
+        ol>ol,
+        ol>ul,
+        ul>ol {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-left: 14px;
+        }
+
+        li {
+            margin-bottom: 4px;
+            list-style-position: inside;
+        }
+
+        ul>li {
+            list-style-type: square;
+        }
+
+        code {
+            font-size: 90%;
+            filter: brightness(0.9);
+            backdrop-filter: brightness(0.7);
+            border-radius: 2px;
+            padding: 3px;
+            white-space: pre;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 6px
+        }
+
+        nav {
+            align-self: center;
+        }
+
+        nav>a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        nav>a::before {
+            color: var(--text);
+            padding-right: 2px;
+            font-size: 110%;
+            content: "[";
+        }
+
+        nav>a::after {
+            color: var(--text);
+            padding-left: 2px;
+            font-size: 110%;
+            content: "]";
+        }
+
+        .note {
+            font-size: 75%;
+            display: inline-block;
+            transform: translateY(-0.4em);
+            white-space: pre;
+        }
+
+        .profile-container {
+            display: block;
+        }
+
+        .profile-container>p {
+            text-align: justify;
+        }
+
+        .profile-picture {
+            float: right;
+            width: 38%;
+            margin: 1.5em;
+            margin-top: 0;
+            margin-right: 0;
+            text-align: left;
+            font-size: 90%;
+        }
+
+        #back {
+            visibility: hidden;
+            opacity: 0;
+            background-color: var(--primary);
+            width: 4em;
+            height: 4em;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 1em;
+            right: 1em;
+            z-index: 100;
+            cursor: pointer;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #back>div {
+            border: solid var(--secondary);
+            border-width: 0 10px 10px 0;
+            display: inline-block;
+            padding: 5px;
+            transform: rotate(-135deg);
+            -webkit-transform: rotate(-135deg);
+        }
+    </style>
+
+    <script defer type="module">
+        console.log("Hello, World!");
+
+        document.getElementById("age").innerText = ((new Date() - new Date("2004-12-08")) / 1000 / 60 / 60 / 24 / 365.25).toFixed(2);
+
+        const backToTopBtn = document.getElementById("back");
+        const nav = document.querySelector("nav");
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    backToTopBtn.style.opacity = 0;
+                    setTimeout(() => backToTopBtn.style.visibility = "hidden", 500);
+                } else {
+                    backToTopBtn.style.visibility = "visible";
+                    backToTopBtn.style.opacity = 1;
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.5
+        });
+        observer.observe(nav);
+
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+        document.querySelectorAll("a").forEach(el => {
+            if (el.href.startsWith(window.location.origin)) {
+                el.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    document.querySelector("#" + el.href.split("#")[1]).scrollIntoView({
+                        behavior: "smooth"
+                    });
+                });
+            }
+        })
+
+        // TODO: discord status / last.fm now playing
+    </script>
+</head>
+
+<body>
+    <h1 id="top">Antti.Codes</h1>
+    <nav>
+        <a href="#who">Who</a>
+        <a href="#projects">Projects</a>
+        <a href="#services">Services</a>
+        <a href="#social">Social</a>
+        <a href="https://an.tti.sh/">Blog</a>
+    </nav>
+    <div id="back">
+        <div></div>
+    </div>
+    <h2 id="who">Who is this guy?</h2>
+    <div class="profile-container">
+        <figure class="profile-picture">
+            <img src="./assets/profile_picture.jpg" alt="Picture of Antti">
+            <figcaption>Picture of Antti from 2022-06-26</figcaption>
+        </figure>
+        <p>
+            I'm just a dude from Finland 🇫🇮 who happens to like
+            programming<span class="note"> since 2016</span> and system administration<span class="note"> since
+                2019</span>.
+            At the moment <span id="age"></span> years old.
+            Recently passed the Finnish Matriculation Examination and currently serving in the Finnish millitary.
+            Going to study computer science in the University of Oulu in 2024.
+            <br><br>
+            I work as as a full stack developer.
+            Mostly freelanching, sometimes also on a company payroll. Though most of my code
+            is free and open source on GitHub, like everything should be.
+            <br><br>
+            As a sysadmin and linux hobbyist I self-host a lot of services and
+            spend too much money and domains and servers.
+            Still doing it just for my own benefit but who knows,
+            maybe system administration could also be a future career path.
+            I use arch btw.
+        </p>
+    </div>
+    <h2 id="what">What can you do?</h2>
+    <p>
+        Absolutely nothing of any value to humanity.
+        <br><br>
+        ... or that's what I would like to think but I'll have to fill this section later.
+    </p>
+    <h2>What have you done?</h2>
+    <h3 id="projects">Projects</h3>
+    <ul>
+        <li><a href="https://github.com/Chicken/Auth">Minecraft Web Authentication</a></li>
+        <li><a href="https://github.com/Chicken/DoorLock">Electronic Door Lock</a></li>
+        <li><a href="https://github.com/Chicken/BlueMap-Towny">BlueMap Towny Integration</a></li>
+        <li><a href="https://github.com/Chicken/qbit.js">JavaScript library for qBittorrent web api</a></li>
+        <li><a href="https://github.com/Chicken/WeatherApi">Weather station</a></li>
+        <li><a href="https://github.com/Chicken/aur-osu-bumper">Automated AUR updates via Discord</a></li>
+    </ul>
+    <p>
+        <!-- TODO: populate this section -->
+        And see the rest on <a href="https://github.com/Chicken/">GitHub</a>.
+        <br>
+        Sadly I can't publish projects made for a client or an employer.
+    </p>
+    <h3 id="services">Services</h3>
+    <ul>
+        <li><a href="https://antti.link/">URL shortener</a></li>
+        <li><a href="https://whois.antti.codes/">Domain Whois</a></li>
+        <li><a href="https://vault.antti.codes/">Bitwarden</a></li>
+        <li><a href="https://grafana.antti.codes/">Grafana</a></li>
+        <li><a href="https://cloud.antti.codes/">Nextcloud</a></li>
+        <li><a href="https://mail.antti.codes/">Email</a></li>
+        <li><a href="https://matrix.antti.codes/">Matrix</a></li>
+        <li><a href="https://jellyfin.antti.codes/">Jellyfin</a></li>
+        <li><a href="https://cast.antti.codes/">Owncast</a></li>
+    </ul>
+    <p>You can find more on my <a href="https://status.antti.codes/">statuspage</a>.</p>
+    <h2 id="social">Where can I stalk you more?</h2>
+    <p>
+        If you want to use encryption here is my <a href="./pgpkey">PGP public key</a>
+        and while we are at keys... here's my <a href="./sshkey">SSH public keys</a> as well.
+    </p>
+    <ul>
+        <li>Discord: <code>@antticodes</code></li>
+        <li>Email: <a href="mailto:antti@antti.codes"><code>antti@antti.codes</code></a></li>
+        <li>GitHub: <a href="https://github.com/Chicken"><code>Chicken</code></a></li>
+        <li>Telegram: <a href="https://t.me/antti_e"><code>antti_e</code></a></li>
+        <li>Matrix: <a href="https://matrix.to/#/@antti:antti.codes"><code>@antti:antti.codes</code></a></li>
+        <li>Twitter: <a href="https://twitter.com/antticodes"><code>@antticodes</code></a></li>
+        <li>LinkedIn: <a href="https://linkedin.com/in/antti-ellila"><code>antti-ellila</code></a></li>
+    </ul>
+</body>
 
 </html>
