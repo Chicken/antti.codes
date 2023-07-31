@@ -63,7 +63,7 @@
         }
 
         h3 {
-            margin-top: 0.5em;
+            margin-bottom: 0.5em;
         }
 
         h1 {
@@ -233,6 +233,7 @@
         observer.observe(nav);
 
         backToTopBtn.addEventListener("click", () => {
+            history.pushState({}, "", "")
             window.scrollTo({
                 top: 0,
                 behavior: "smooth"
@@ -243,7 +244,9 @@
             if (el.href.startsWith(window.location.origin)) {
                 el.addEventListener("click", (e) => {
                     e.preventDefault();
-                    document.querySelector("#" + el.href.split("#")[1]).scrollIntoView({
+                    const hash = "#" + el.href.split("#")[1];
+                    history.pushState({}, "", hash)
+                    document.querySelector(hash).scrollIntoView({
                         behavior: "smooth"
                     });
                 });
@@ -260,6 +263,7 @@
         <a href="#who">Who</a>
         <a href="#projects">Projects</a>
         <a href="#services">Services</a>
+        <a href="#communities">Communities</a>
         <a href="#social">Social</a>
         <a href="https://an.tti.sh/">Blog</a>
     </nav>
@@ -277,7 +281,7 @@
             programming<span class="note">since 2016</span>
             and system administration<span class="note">since 2019</span>.
             At the moment <span id="age"></span> years old.
-            Recently passed the Finnish Matriculation Examination and currently serving in the Finnish millitary.
+            Recently passed the Finnish Matriculation Examination and currently serving in the Finnish military.
             Going to study computer science in the University of Oulu in 2024.
             <br><br>
             I work as as a full stack developer using JavaScript and TypeScript for anything.
@@ -329,10 +333,19 @@
         <li><a href="https://cast.antti.codes/">Owncast</a></li>
     </ul>
     <p>You can find more on my <a href="https://status.antti.codes/">statuspage</a>.</p>
+    <h3 id="communities">Communities</h3>
+    <p>Places where I'm involved</p>
+    <ul>
+        <li><a href="https://testausserveri.fi/">Testausserveri</a> - Vice Chairman of the Board and system
+            administrator</li>
+        <li><a href="https://globecraft.xyz/">Globecraft</a> - Developer</li>
+        <li><a href="https://bluemap.bluecolored.de/">BlueMap</a> - Assistant</li>
+        <li><a href="https://github.com/IIoW">IIslands Of War</a> - "Mini" Dev</li>
+    </ul>
     <h2 id="social">Where can I stalk you more?</h2>
     <p>
         If you want to use encryption here is my <a href="./pgpkey">PGP public key</a>
-        and while we are at keys... here's my <a href="./sshkey">SSH public keys</a> as well.
+        and while we are at keys... here are my <a href="./sshkey">SSH public keys</a> as well.
     </p>
     <ul>
         <li>Discord: <code>@antticodes</code></li>
