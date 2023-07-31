@@ -20,7 +20,7 @@
     <style>
         @font-face {
             font-family: SpaceMono;
-            src: url(./assets/SpaceMono.ttf);
+            src: url("./assets/SpaceMono.ttf");
         }
 
         :root {
@@ -79,24 +79,15 @@
             color: var(--text);
         }
 
-        ul,
-        ol {
+        ul {
             margin-top: 8px;
-            padding-left: 8px;
-        }
-
-        ul>ul,
-        ol>ol,
-        ol>ul,
-        ul>ol {
-            margin-top: 0;
-            margin-bottom: 0;
-            padding-left: 14px;
+            margin-left: 28px;
+            padding-left: 0px;
         }
 
         li {
             margin-bottom: 4px;
-            list-style-position: inside;
+            text-align: left;
         }
 
         ul>li {
@@ -121,7 +112,7 @@
             align-self: center;
             display: flex;
             flex-direction: row;
-            justify-content: space-evenly;
+            justify-content: center;
             gap: 0.5em 2em;
             flex-wrap: wrap;
         }
@@ -135,29 +126,30 @@
             color: var(--text);
             padding-right: 2px;
             font-size: 110%;
-            content: "[";
+            content: "{";
         }
 
         nav>a::after {
             color: var(--text);
             padding-left: 2px;
             font-size: 110%;
-            content: "]";
+            content: "}";
         }
 
         .note {
             font-size: 75%;
             display: inline-block;
             transform: translateY(-0.4em);
-            white-space: pre;
         }
 
-        .profile-container {
-            display: block;
+        .note::before {
+            color: var(--text);
+            content: "(";
         }
 
-        .profile-container>p {
-            text-align: justify;
+        .note::after {
+            color: var(--text);
+            content: ")";
         }
 
         .profile-picture {
@@ -187,7 +179,7 @@
         }
 
         #back {
-            visibility: hidden;
+            pointer-events: none;
             opacity: 0;
             background-color: var(--primary);
             width: 4em;
@@ -227,10 +219,10 @@
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     backToTopBtn.style.opacity = 0;
-                    setTimeout(() => backToTopBtn.style.visibility = "hidden", 500);
+                    backToTopBtn.style.pointerEvents = "none"
                 } else {
-                    backToTopBtn.style.visibility = "visible";
                     backToTopBtn.style.opacity = 1;
+                    backToTopBtn.style.pointerEvents = "all"
                 }
             });
         }, {
@@ -282,18 +274,21 @@
         </figure>
         <p>
             I'm just a dude from Finland 🇫🇮 who happens to like
-            programming<span class="note"> since 2016</span>
-            and system administration<span class="note"> since 2019</span>.
+            programming<span class="note">since 2016</span>
+            and system administration<span class="note">since 2019</span>.
             At the moment <span id="age"></span> years old.
             Recently passed the Finnish Matriculation Examination and currently serving in the Finnish millitary.
             Going to study computer science in the University of Oulu in 2024.
             <br><br>
-            I work as as a full stack developer.
-            Mostly freelancing, sometimes also on a company payroll. Though most of my code
-            is free and open source on GitHub, like everything should be.
+            I work as as a full stack developer using JavaScript and TypeScript for anything.
+            Be it backend, web, desktop, mobile, games or embedded.
+            I do prefer the backend but for them to be useful, frontends are a necessary evil.
+            Work is mostly freelancing, sometimes on a company payroll. Though most of my code
+            is free and open source on GitHub, like all software should be.
             <br><br>
-            As a sysadmin and linux hobbyist I self-host a lot of services and
+            As a sysadmin and linux hobbyist, I self-host a lot of services and
             spend too much money and domains and servers.
+            I absolutely adore Docker<span class="note">and the whale</span> for my self-hosting needs.
             Still doing it just for my own benefit but who knows,
             maybe system administration could also be a future career path.
             I use arch btw.
