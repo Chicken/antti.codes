@@ -118,6 +118,11 @@
 
         nav {
             align-self: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            gap: 0.5em 2em;
+            flex-wrap: wrap;
         }
 
         nav>a {
@@ -162,6 +167,22 @@
             margin-right: 0;
             text-align: left;
             font-size: 90%;
+        }
+
+        @media screen and (max-width: 800px) {
+            .profile-picture {
+                float: none;
+                width: 100%;
+                margin: 0;
+                margin-top: 8px;
+                text-align: center;
+                font-size: 100%;
+            }
+
+            .profile-container {
+                display: flex;
+                flex-direction: column-reverse;
+            }
         }
 
         #back {
@@ -259,8 +280,8 @@
         </figure>
         <p>
             I'm just a dude from Finland 🇫🇮 who happens to like
-            programming<span class="note"> since 2016</span> and system administration<span class="note"> since
-                2019</span>.
+            programming<span class="note"> since 2016</span>
+            and system administration<span class="note"> since 2019</span>.
             At the moment <span id="age"></span> years old.
             Recently passed the Finnish Matriculation Examination and currently serving in the Finnish millitary.
             Going to study computer science in the University of Oulu in 2024.
