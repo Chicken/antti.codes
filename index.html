@@ -246,7 +246,7 @@
             });
         });
 
-        document.querySelectorAll("a").forEach(el => {
+        document.querySelectorAll("nav > a").forEach(el => {
             if (el.href.startsWith(window.location.origin)) {
                 el.addEventListener("click", (e) => {
                     e.preventDefault();
