@@ -164,6 +164,34 @@
             font-size: 90%;
         }
 
+        #back {
+            display: none;
+            pointer-events: none;
+            opacity: 0;
+            background-color: var(--primary);
+            width: 4em;
+            height: 4em;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 1em;
+            right: 1em;
+            z-index: 100;
+            cursor: pointer;
+            transition: opacity 0.5s ease-in-out;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #back>div {
+            border: solid var(--secondary);
+            border-width: 0 10px 10px 0;
+            display: inline-block;
+            padding: 5px;
+            transform: rotate(-135deg);
+            -webkit-transform: rotate(-135deg);
+            pointer-events: none;
+        }
+
         @media screen and (max-width: 800px) {
             .profile-picture {
                 float: none;
@@ -178,34 +206,10 @@
                 display: flex;
                 flex-direction: column-reverse;
             }
-        }
 
-        #back {
-            pointer-events: none;
-            opacity: 0;
-            background-color: var(--primary);
-            width: 4em;
-            height: 4em;
-            border-radius: 50%;
-            position: fixed;
-            bottom: 1em;
-            right: 1em;
-            z-index: 100;
-            cursor: pointer;
-            transition: opacity 0.5s ease-in-out;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #back>div {
-            border: solid var(--secondary);
-            border-width: 0 10px 10px 0;
-            display: inline-block;
-            padding: 5px;
-            transform: rotate(-135deg);
-            -webkit-transform: rotate(-135deg);
-            pointer-events: none;
+            #back {
+                display: flex;
+            }
         }
     </style>
 
