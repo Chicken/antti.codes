@@ -18,16 +18,19 @@
     <meta name="og:locale" content="en_us">
     <meta name="og:email" content="antti@antti.codes" />
 
+    <link rel="preload" href="/assets/SpaceMono.ttf" as="font" type="font/ttf" crossorigin>
+
     <style>
         @font-face {
             font-family: SpaceMono;
             src: url("./assets/SpaceMono.ttf");
+            font-display: block;
         }
 
         :root {
             line-height: 1.5;
             font-size: 16px;
-            font-family: SpaceMono;
+            font-family: SpaceMono, monospace;
             font-variant-ligatures: no-common-ligatures;
 
             --text: #fafafa;
