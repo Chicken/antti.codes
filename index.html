@@ -18,7 +18,7 @@
     <meta name="og:locale" content="en_us">
     <meta name="og:email" content="antti@antti.codes" />
 
-    <link rel="preload" href="/assets/SpaceMono.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="./assets/SpaceMono.ttf" as="font" type="font/ttf" crossorigin>
 
     <style>
         @font-face {
@@ -34,6 +34,7 @@
             font-variant-ligatures: no-common-ligatures;
 
             --text: #fafafa;
+            --subtext: #dadada;
             --background: #090609;
             --primary: #b94680;
             --secondary: #1a0a0a;
@@ -43,7 +44,6 @@
         body {
             margin: 2em auto;
             max-width: 800px;
-            padding: 1em;
             margin-bottom: 6em;
 
             display: flex;
@@ -99,6 +99,12 @@
             list-style-type: square;
         }
 
+        ul>li>div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
         code {
             font-size: 90%;
             filter: brightness(0.9);
@@ -107,6 +113,10 @@
             padding: 3px;
             white-space: pre;
             font-family: SpaceMono, monospace;
+        }
+
+        i {
+            padding-right: 1px;
         }
 
         img {
@@ -172,6 +182,10 @@
             height: auto;
         }
 
+        figcaption {
+            color: var(--subtext);
+        }
+
         #back {
             display: none;
             pointer-events: none;
@@ -200,6 +214,72 @@
             pointer-events: none;
         }
 
+        #online-status {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 1em;
+            gap: 20px;
+        }
+
+        #online-status>div {
+            --height: 92px;
+            --gap: 1em;
+            display: none;
+            max-width: min(95%, 390px);
+            min-width: min(95%, 300px);
+            width: max-content;
+            height: var(--height);
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        #online-status>div>img {
+            height: var(--height);
+            width: var(--height);
+            float: left;
+            border-radius: 8px;
+            margin-right: var(--gap);
+        }
+
+        #online-status>div>div {
+            float: left;
+            max-width: calc(100% - var(--height) - var(--gap));
+            width: 100%;
+        }
+
+        #online-status>div>div>span {
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: max-content;
+            max-width: 101%;
+        }
+
+        #spotify-progress {
+            width: 100%;
+            height: 4px;
+            margin-top: 4px;
+            border-radius: 2px;
+            background-color: var(--secondary);
+        }
+
+        #spotify-progress>div {
+            height: 4px;
+            border-radius: 2px;
+            background-color: var(--primary);
+        }
+
+        #discord {
+            display: inline-block;
+            border-radius: 50%;
+            background-color: #11111b;
+            aspect-ratio: 1/1;
+            width: 1em;
+            align-self: center;
+        }
+
         @media screen and (max-width: 800px) {
             .profile-picture {
                 float: none;
@@ -218,13 +298,18 @@
             #back {
                 display: flex;
             }
+
+            #online-status {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 
     <script defer type="module">
         console.log("Hello, World!");
 
-        document.getElementById("age").innerText = ((new Date() - new Date("2004-12-08")) / 1000 / 60 / 60 / 24 / 365.25).toFixed(2);
+        document.getElementById("age").innerText = ((new Date() - new Date("2004-12-08T17:00:00.000+03:00")) / 1000 / 60 / 60 / 24 / 365.25).toFixed(2);
 
         const backToTopBtn = document.getElementById("back");
         const nav = document.querySelector("nav");
@@ -267,7 +352,160 @@
             }
         })
 
-        // TODO: discord status / last.fm now playing
+        // TODO: last.fm now playing when discord spotify status isn't available
+
+        const discordEl = document.getElementById("discord");
+        const discordExtraEl = document.getElementById("discord-extra");
+        const spotifyEl = document.getElementById("spotify");
+        const vscodeEl = document.getElementById("vscode");
+
+        function sanitize(/** @type {string} */ str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function html(/** @type {string[]} */ strings, /** @type {unknown[]} */ ...values) {
+            return strings.reduce((acc, str, i) => acc + str + (Boolean(values[i]) ? sanitize(String(values[i])) : ""), "");
+        }
+
+        function formatTime(/** @type {number} */ secs) {
+            const hours = Math.floor(secs / 3600);
+            const minutes = Math.floor(secs / 60) % 60;
+            const seconds = secs % 60;
+            return `${hours ? hours + ":" : ""}${hours && minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+        }
+
+        const lanyardServer = "wss://lanyard.antti.codes/socket";
+        const activityTarget = "312974985876471810";
+
+        /** @type {number | null} */
+        let refreshTimeout = null;
+        /** @type {WebSocket | null} */
+        let ws = null;
+        function listenForDiscord() {
+            refreshTimeout = null;
+            ws = new WebSocket(lanyardServer);
+            /** @type {number | null} */
+            let wsHeartbeat = null;
+            /** @type {number | null} */
+            let spotifyProgress = null;
+            /** @type {number | null} */
+            let vscodeElapsed = null;
+
+            ws.onmessage = (/** @type {MessageEvent<any>} */ event) => {
+                const { op, d: data } = JSON.parse(event.data);
+
+                switch (op) {
+                    case 1: {
+                        if (wsHeartbeat) clearInterval(wsHeartbeat);
+                        wsHeartbeat = setInterval(() => {
+                            ws.send(JSON.stringify({ op: 3 }));
+                        }, data.heartbeat_interval);
+                        ws.send(JSON.stringify({
+                            op: 2,
+                            d: {
+                                subscribe_to_id: activityTarget,
+                            },
+                        }));
+                        break;
+                    }
+
+                    case 0: {
+                        discordEl.style.backgroundColor = {
+                            online: "#a6e3a1",
+                            idle: "#fab387",
+                            dnd: "#f38ba8",
+                            offline: "#585b70",
+                        }[data.discord_status];
+
+                        if (data.active_on_discord_mobile && !(data.active_on_discord_desktop || data.active_on_discord_web)) {
+                            discordExtraEl.innerHTML = html`
+                                <span>&nbsp;on mobile</span>
+                            `;
+                        } else {
+                            discordExtraEl.innerHTML = "";
+                        }
+
+                        if (spotifyProgress) clearInterval(spotifyProgress);
+                        if (data.listening_to_spotify && data.spotify) {
+                            const s = data.spotify;
+                            spotifyEl.style.display = "block";
+
+                            let n = Date.now();
+                            const { start, end } = s.timestamps;
+                            const progress = Math.floor((n - start) / 1000);
+                            const total = Math.floor((end - start) / 1000);
+                            const progressPercentage = (progress / total * 100).toFixed(2);
+                            spotifyEl.innerHTML = html`
+                                <img src="${s.album_art_url}">
+                                <div>
+                                    <span>Listening <a href="https://open.spotify.com/track/${s.track_id}"><i>${s.song}</i></a></span>
+                                    <span>by <i>${s.artist.replaceAll(";", ",")}</i></span>
+                                    <span>on <i>${s.album}</i></span>
+                                    <div id="spotify-progress">
+                                        <div style="width: ${progressPercentage}%"></div>
+                                        <span style="float: left;">${formatTime(progress)}</span>
+                                        <span style="float: right;">${formatTime(total)}</span>
+                                    </div>
+                                </div>
+                            `;
+
+                            spotifyProgress = setInterval(() => {
+                                n = Date.now()
+                                const progressBar = document.getElementById("spotify-progress");
+                                const progress = Math.floor((n - start) / 1000);
+                                const total = Math.floor((end - start) / 1000);
+                                const progressPercentage = (progress / total * 100).toFixed(2);
+
+                                progressBar.innerHTML = html`
+                                    <div style="width: ${progressPercentage}%"></div>
+                                    <span style="float: left;">${formatTime(progress)}</span>
+                                    <span style="float: right;">${formatTime(total)}</span>
+                                `;
+                            }, 250)
+                        } else {
+                            spotifyEl.style.display = "none";
+                        }
+
+                        const vscodeId = "383226320970055681";
+                        const vscode = data.activities.find(activity => activity.application_id === vscodeId);
+
+                        if (vscodeElapsed) clearInterval(vscodeElapsed);
+                        if (vscode) {
+                            vscodeEl.style.display = "block";
+                            const elapsed = Math.floor((Date.now() - vscode.timestamps.start) / 1000);
+                            vscodeEl.innerHTML = html`
+                                <img src="https://cdn.discordapp.com/app-assets/${vscodeId}/${vscode.assets.large_image}.webp">
+                                <div>
+                                    <span><strong>Visual Studio Code</strong></span>
+                                    <span>${vscode.details}</span>
+                                    <span>${vscode.state}</span>
+                                    <span>${formatTime(elapsed)} elapsed</span>
+                                </div>
+                            `;
+                            vscodeElapsed = setInterval(() => {
+                                const elapsed = Math.floor((Date.now() - vscode.timestamps.start) / 1000);
+                                vscodeEl.children[1].children[3].innerText = formatTime(elapsed) + " elapsed";
+                            }, 250);
+                        } else {
+                            vscodeEl.style.display = "none";
+                        }
+                        break;
+                    }
+                }
+            };
+
+            function close() {
+                if (ws.readyState === WebSocket.OPEN) ws.close();
+                if (wsHeartbeat) clearInterval(wsHeartbeat);
+                if (spotifyProgress) clearInterval(spotifyProgress);
+                if (vscodeElapsed) clearInterval(vscodeElapsed);
+                if (!refreshTimeout) refreshTimeout = setTimeout(listenForDiscord, 3 * 1000);
+            }
+
+            ws.onerror = close;
+            ws.onclose = close;
+        }
+        listenForDiscord();
     </script>
 </head>
 
@@ -281,6 +519,10 @@
         <a href="#communities">Communities</a>
         <a href="https://an.tti.sh/">Blog</a>
     </nav>
+    <div id="online-status">
+        <div id="spotify"></div>
+        <div id="vscode"></div>
+    </div>
     <div id="back">
         <div></div>
     </div>
@@ -318,7 +560,15 @@
         and while we are at keys... here are my <a href="./sshkey">SSH public keys</a> as well.
     </p>
     <ul>
-        <li>Discord: <code>@antticodes</code></li>
+        <li>
+            <div>
+                <span>Discord:&nbsp;</span>
+                <code>@antticodes</code>
+                <span>&nbsp;</span>
+                <div id="discord"></div>
+                <div id="discord-extra"></div>
+            </div>
+        </li>
         <li>Email: <a href="mailto:antti@antti.codes"><code>antti@antti.codes</code></a></li>
         <li>GitHub: <a href="https://github.com/Chicken"><code>Chicken</code></a></li>
         <li>Telegram: <a href="https://t.me/antti_e"><code>antti_e</code></a></li>
