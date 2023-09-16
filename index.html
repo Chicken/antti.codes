@@ -438,7 +438,7 @@
                             spotifyEl.innerHTML = html`
                                 <img src="${s.album_art_url}">
                                 <div>
-                                    <span>Listening <a href="https://open.spotify.com/track/${s.track_id}"><i>${s.song}</i></a></span>
+                                    <span>Listening to <a href="https://open.spotify.com/track/${s.track_id}"><i>${s.song}</i></a></span>
                                     <span>by <i>${s.artist.replaceAll(";", ",")}</i></span>
                                     <span>on <i>${s.album}</i></span>
                                     <div id="spotify-progress">
