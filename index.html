@@ -357,8 +357,6 @@
             }
         })
 
-        // TODO: last.fm now playing when discord spotify status isn't available
-
         const discordEl = document.getElementById("discord");
         const discordExtraEl = document.getElementById("discord-extra");
         const spotifyEl = document.getElementById("spotify");
@@ -383,29 +381,27 @@
         const activityTarget = "312974985876471810";
 
         /** @type {number | null} */
-        let refreshTimeout = null;
+        let discordRefreshTimeout = null;
         /** @type {WebSocket | null} */
-        let ws = null;
+        let discordWs = null;
         function listenForDiscord() {
-            refreshTimeout = null;
-            ws = new WebSocket(lanyardServer);
+            discordRefreshTimeout = null;
+            discordWs = new WebSocket(lanyardServer);
             /** @type {number | null} */
             let wsHeartbeat = null;
             /** @type {number | null} */
-            let spotifyProgress = null;
-            /** @type {number | null} */
             let vscodeElapsed = null;
 
-            ws.onmessage = (/** @type {MessageEvent<any>} */ event) => {
+            discordWs.onmessage = (/** @type {MessageEvent<any>} */ event) => {
                 const { op, d: data } = JSON.parse(event.data);
 
                 switch (op) {
                     case 1: {
                         if (wsHeartbeat) clearInterval(wsHeartbeat);
                         wsHeartbeat = setInterval(() => {
-                            ws.send(JSON.stringify({ op: 3 }));
+                            discordWs.send(JSON.stringify({ op: 3 }));
                         }, data.heartbeat_interval);
-                        ws.send(JSON.stringify({
+                        discordWs.send(JSON.stringify({
                             op: 2,
                             d: {
                                 subscribe_to_id: activityTarget,
@@ -429,48 +425,7 @@
                         } else {
                             discordExtraEl.innerHTML = "";
                         }
-
-                        if (spotifyProgress) clearInterval(spotifyProgress);
-                        if (data.listening_to_spotify && data.spotify) {
-                            const s = data.spotify;
-                            spotifyEl.style.display = "block";
-
-                            let n = Date.now();
-                            const { start, end } = s.timestamps;
-                            const progress = Math.floor((n - start) / 1000);
-                            const total = Math.floor((end - start) / 1000);
-                            const progressPercentage = (progress / total * 100).toFixed(2);
-                            spotifyEl.innerHTML = html`
-                                <img src="${s.album_art_url}">
-                                <div>
-                                    <span>Listening to <a href="https://open.spotify.com/track/${s.track_id}"><i>${s.song}</i></a></span>
-                                    <span>by <i>${s.artist.replaceAll(";", ",")}</i></span>
-                                    <span>on <i>${s.album}</i></span>
-                                    <div id="spotify-progress">
-                                        <div style="width: ${progressPercentage}%"></div>
-                                        <span style="float: left;">${formatTime(progress)}</span>
-                                        <span style="float: right;">${formatTime(total)}</span>
-                                    </div>
-                                </div>
-                            `;
-
-                            spotifyProgress = setInterval(() => {
-                                n = Date.now()
-                                const progressBar = document.getElementById("spotify-progress");
-                                const progress = Math.floor((n - start) / 1000);
-                                const total = Math.floor((end - start) / 1000);
-                                const progressPercentage = (progress / total * 100).toFixed(2);
-
-                                progressBar.innerHTML = html`
-                                    <div style="width: ${progressPercentage}%"></div>
-                                    <span style="float: left;">${formatTime(progress)}</span>
-                                    <span style="float: right;">${formatTime(total)}</span>
-                                `;
-                            }, 250)
-                        } else {
-                            spotifyEl.style.display = "none";
-                        }
-
+                        
                         const vscodeId = "383226320970055681";
                         const vscode = data.activities.find(activity => activity.application_id === vscodeId);
 
@@ -500,17 +455,109 @@
             };
 
             function close() {
-                if (ws.readyState === WebSocket.OPEN) ws.close();
+                if (discordWs.readyState === WebSocket.OPEN) discordWs.close();
                 if (wsHeartbeat) clearInterval(wsHeartbeat);
-                if (spotifyProgress) clearInterval(spotifyProgress);
                 if (vscodeElapsed) clearInterval(vscodeElapsed);
-                if (!refreshTimeout) refreshTimeout = setTimeout(listenForDiscord, 3 * 1000);
+                if (!discordRefreshTimeout) discordRefreshTimeout = setTimeout(listenForDiscord, 3 * 1000);
             }
 
-            ws.onerror = close;
-            ws.onclose = close;
+            discordWs.onerror = close;
+            discordWs.onclose = close;
         }
         listenForDiscord();
+
+
+        const statusServer = "wss://spotify.antti.codes";
+        const spotifyTarget = "qgfht3wu1vo4ajn8skj9ugxem";
+
+        /** @type {number | null} */
+        let spotifyRefreshTimeout = null;
+        /** @type {WebSocket | null} */
+        let spotifyWs = null;
+        let spotifyKilled = false;
+        function listenForSpotify() {
+            spotifyRefreshTimeout = null;
+            spotifyWs = new WebSocket(statusServer);
+            /** @type {number | null} */
+            let wsHeartbeat = null;
+            /** @type {number | null} */
+            let spotifyProgress = null;
+
+            spotifyWs.onmessage = (/** @type {MessageEvent<any>} */ event) => {
+                const { op, d: data } = JSON.parse(event.data);
+
+                switch (op) {
+                    case 1: {
+                        if (wsHeartbeat) clearInterval(wsHeartbeat);
+                        wsHeartbeat = setInterval(() => {
+                            spotifyWs.send(JSON.stringify({ op: 3 }));
+                        }, data.heartbeat_interval);
+                        spotifyWs.send(JSON.stringify({
+                            op: 2,
+                            d: spotifyTarget,
+                        }));
+                        break;
+                    }
+
+                    case 0: {
+                        if (spotifyProgress) clearInterval(spotifyProgress);
+                        if (data.is_playing) {
+                            spotifyEl.style.display = "block";
+
+                            let n = Date.now();
+                            const progress = Math.floor((n - data.start * 1000) / 1000);
+                            const progressPercentage = (progress / data.total * 100).toFixed(2);
+                            spotifyEl.innerHTML = html`
+                                <img src="${data.album_art}">
+                                <div>
+                                    <span>Listening to <a href="https://open.spotify.com/track/${data.track_id}"><i>${data.song}</i></a></span>
+                                    <span>by <i>${data.artist.replaceAll(";", ",")}</i></span>
+                                    <span>on <i>${data.album}</i></span>
+                                    <div id="spotify-progress">
+                                        <div style="width: ${progressPercentage}%"></div>
+                                        <span style="float: left;">${formatTime(progress)}</span>
+                                        <span style="float: right;">${formatTime(data.total)}</span>
+                                    </div>
+                                </div>
+                            `;
+
+                            spotifyProgress = setInterval(() => {
+                                n = Date.now()
+                                const progressBar = document.getElementById("spotify-progress");
+                                const progress = Math.floor((n - data.start * 1000) / 1000);
+                                const progressPercentage = (progress / data.total * 100).toFixed(2);
+
+                                progressBar.innerHTML = html`
+                                    <div style="width: ${progressPercentage}%"></div>
+                                    <span style="float: left;">${formatTime(progress)}</span>
+                                    <span style="float: right;">${formatTime(data.total)}</span>
+                                `;
+                            }, 250)
+                        } else {
+                            spotifyEl.style.display = "none";
+                        }
+                        break;
+                    }
+
+                    case 4: {
+                        spotifyKilled = true;
+                        console.error("SPOTIFY:", data);
+                        break;
+                    }
+                }
+            };
+
+            function close() {
+                if (spotifyWs.readyState === WebSocket.OPEN) spotifyWs.close();
+                if (wsHeartbeat) clearInterval(wsHeartbeat);
+                if (spotifyProgress) clearInterval(spotifyProgress);
+                if (!spotifyRefreshTimeout && !spotifyKilled) spotifyRefreshTimeout = setTimeout(listenForSpotify, 3 * 1000);
+            }
+
+            spotifyWs.onerror = close;
+            spotifyWs.onclose = close;
+        }
+        listenForSpotify();
     </script>
 </head>
 
